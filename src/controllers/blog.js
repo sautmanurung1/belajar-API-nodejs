@@ -1,7 +1,17 @@
+const {validationResult} = require('express-validator');
 exports.createBlogPost = (req, res) =>{
     const title = req.body.title;
     // const image = req.body.image;
     const body = req.body.body;
+
+    const error = validationResult(req);
+
+    if(!error.isEmpty()){
+        const err = new Error('Input Value tidak sesuai')
+        err.errorStatus = 400;
+        err.data = error.array();
+        throw err;
+    }
 
     const result = {
         message: "Create Blog Post Success",

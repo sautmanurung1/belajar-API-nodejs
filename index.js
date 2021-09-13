@@ -12,6 +12,15 @@ app.use((req,res,next) =>{
 })
 app.use('/v1/auth', authRouters);
 app.use('/v1/blog', blogRouters);
+app.use((error,req, res, next)=>{
+    const status = error.errorStatus || 500;
+    const message = error.message;
+    const data = error.data;
+    res.status(status).json({
+        message: message, 
+        data:data,
+    })
+})
 app.use(() => {
     console.log('Welcome!');
 })
