@@ -1,9 +1,6 @@
 const {validationResult} = require('express-validator');
+const BlogPost = require('../models/blog')
 exports.createBlogPost = (req, res) =>{
-    const title = req.body.title;
-    // const image = req.body.image;
-    const body = req.body.body;
-
     const error = validationResult(req);
 
     if(!error.isEmpty()){
@@ -13,19 +10,31 @@ exports.createBlogPost = (req, res) =>{
         throw err;
     }
 
-    const result = {
-        message: "Create Blog Post Success",
-        data:{
-            post_id:1,
-            title : title,
-            image : "imagefile.png",
-            body : body,
-            created_at : new Date(),
-            author:{
-                uid : 1,
-                name : "Saut Manurung"
-            }
-        }
-    };
-    res.status(201).json(result);
+    if(!req.file){
+        const err = new Error('Image Harus Di Upload')
+        err.errorStatus = 422;
+        throw err;
+    }
+
+    const title = req.body.title;
+    const image = req.file.path;
+    const body = req.body.body;
+
+    const Post = new BlogPost({
+        title : title,
+        body : body,
+        image: image,
+        author: {uid: 1, name : "Saut Manurung"}
+    })
+
+    Post.save()
+    .then(result => {
+        res.status(201).json({
+            message: "Create Blog Post Success",
+            data: result
+        });
+    })
+    .catch(err => {
+        console.log('err : ', err)
+    });
 }
