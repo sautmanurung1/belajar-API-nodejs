@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const app = express();
+const path = require('path');
 const authRouters = require('../project/src/routers/auth');
 const blogRouters = require('../project/src/routers/blog');
 const fileStorage = multer.diskStorage({
@@ -25,6 +26,7 @@ const fileFilter = (req,file,cb) =>{
     }
 }; 
 app.use(express.json());
+app.use('/images', express.static(path.join(__dirname, '../project/src/images')));
 app.use(express.urlencoded({ extended: true }));
 app.use(multer({
     storage: fileStorage,

@@ -12,3 +12,17 @@ exports.register = (req,res) =>{
     }
     res.status(201).json(result);
 }
+exports.login = (req,res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    const result = {
+        message: "Login Success",
+        data : {
+            uid:1,
+            name : "Testing",
+            email:email,
+            password: password,
+        }
+    }
+    res.status(201).json(result);
+}
