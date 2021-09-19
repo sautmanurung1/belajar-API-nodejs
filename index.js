@@ -26,7 +26,7 @@ const fileFilter = (req,file,cb) =>{
     }
 }; 
 app.use(express.json());
-app.use('/images', express.static(path.join(__dirname, '../project/src/images')));
+app.use('/project/src/images', express.static(path.join(__dirname, '../project/src/images')));
 app.use(express.urlencoded({ extended: true }));
 app.use(multer({
     storage: fileStorage,
