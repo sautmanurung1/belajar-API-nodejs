@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "nodemon index.js"
+    "build": "nodemon index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Saut Manurung",
   "license": "ISC",
