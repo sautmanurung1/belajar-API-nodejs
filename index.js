@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const app = express();
 const path = require('path');
-const authRouters = require('../project/src/routers/auth');
-const blogRouters = require('../project/src/routers/blog');
+const authRouters = require('../project/src/routers/auth.js');
+const blogRouters = require('../project/src/routers/blog.js');
 const fileStorage = multer.diskStorage({
     destination: (req,file,cb) =>{
         cb(null, '../project/src/images');
